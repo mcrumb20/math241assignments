@@ -1,0 +1,300 @@
+---
+title: "Assignment 3"
+format: html
+editor: visual
+---
+
+***How to do it?***:
+
+-   Open the Quarto file of this assignment ([link](assignment3.qmd)) in Rstudio.
+
+-   Right under each **question**, insert a code chunk (you can use the hotkey `Ctrl + Alt + I` to add a code chunk) and code the solution for the question.
+
+-   `Knit` the rmarkdown file (hotkey: `Ctrl + Alt + K`) to export an html.
+
+-   Publish the html file to your Githiub Page.
+
+***Submission***: Submit the link on Github of the assignment to Canvas.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE)
+```
+
+------------------------------------------------------------------------
+
+## Problems
+
+\
+
+1.  Create the following data frame
+
+| Rank | Age | Name  |
+|:-----|:----|:------|
+| 0    | 28  | Tom   |
+| 1    | 34  | Jack  |
+| 2    | 29  | Steve |
+| 3    | 42  | Ricky |
+
+```{r}
+df = data.frame(Rank = c(0,1,2,3),
+                Age = c(28, 34, 29, 42), 
+                Name = c('Tom', 'Jack', 'Steve', 'Ricky'))
+
+```
+
+2.  Use `read.csv` to import the Covid19 Vaccination data from WHO: [link](https://bryantstats.github.io/math421/data/us-states.csv).
+
+    ```{r}
+    df = read.csv("C:/Users/student/Desktop/421math/math241assignments/us-states (1).csv")
+    ```
+
+3.  Show the names of the variables in the data
+
+    ```{r}
+    names(df)
+
+    ```
+
+```         
+```
+
+4.  How many columns and rows the data have?
+
+    ```{r}
+    dim(df)
+    ```
+
+5.  How many missing values are there? Show the missing values by columns. What variable has the most number of missing values?
+
+    ```{r}
+    sum(is.na(df))
+    colSums(is.na(df))
+    ```
+
+There are no missing values in this dataset.
+
+6.  What is the class of the `date` column. Change the `date` columns to `date` type using the `as.Date` function. Show the new class of the `date` column.
+
+    ```{r}
+    class(df$date)
+    df$date = as.Date(df$date)
+    class(df$date)
+
+    ```
+
+    It is originally showing as "character" after the code, it is shown as date
+
+7.  Capitalize the names of all the variables
+
+    ```{r}
+    names(df) = toupper(names(df))
+    names(df)
+
+    ```
+
+    ```{r}
+    names(df) = tolower(names(df))
+    ```
+
+8.  Find the average number of cases per day. Find the maximum cases a day.
+
+    ```{r}
+    mean(df$cases)
+    max(df$cases)
+    ```
+
+9.  How many states are there in the data?
+
+    ```{r}
+    length(unique(df$state))
+
+    ```
+
+10. Create a new variable `weekdays` to store the weekday for each rows.
+
+    ```{r}
+    df$date = as.Date(df$date)
+    df$weekdays = weekdays(df$date)
+    head(df)
+
+    ```
+
+11. Create the categorical variable `death2` variable taking the values as follows
+
+-   `has_death` if there is a death that day
+
+-   `no_death` if there is no death that day
+
+    ```{r}
+    df$death2 = ifelse(df$deaths > 0, "has_death", "no_death")
+    head(df)
+
+    ```
+
+Find the frequency and relative frequency of `no_death` and `has_death`.
+
+```{r}
+table(df$death2)
+
+prop.table(table(df$death2))
+
+```
+
+12. Find the first quartile (Q1), second quartile (Q2) and and third quartile (Q3) of the variable `death`. (Hint: Use the `summary` function)
+
+    ```{r}
+    summary(df$deaths)
+
+    ```
+
+    Q1: 838 Q2: 4064 Q3: 12674
+
+13. Create the categorical variable `death3` variable taking the values as follows
+
+-   `low_death` if the number of deaths smaller than the 25 percentile (Q1)
+
+-   `mid_death` if the number of deaths from Q1 to Q3
+
+-   `high_death` if the number of deaths greater than Q3
+
+    ```{r}
+    df$death3 = ifelse(df$deaths < 838, "low_death", 
+                       ifelse(df$deaths > 12674, "high_death", "mid_death"))
+    table(df$death3)
+    ```
+
+14. Find the average cases in Rhode Island in 2021
+
+    ```{r}
+    mean(df$cases[df$state == "Rhode Island" & df$date >= "2021-01-01" & df$date <= "2021-12-31"])
+    ```
+
+15. Find the median cases by weekdays in Rhode Island in 2021
+
+    ```{r}
+    ri = df[df$state == "Rhode Island" & format(df$date, "%Y") == "2021", ]
+
+    tapply(ri$cases, ri$weekdays, median)
+    ```
+
+16. Compare the median cases in Rhode Island in June, July, August and September in 2021.
+
+    ```{r}
+    ri = df[df$state == "Rhode Island" & df$date >= "2021-06-01" & df$date <= "2021-09-30", ]
+
+    tapply(ri$cases, format(ri$date, "%B"), median)
+    ```
+
+17. Find your own dataset, import it and implement the following functions on the data
+
+    ```{r}
+    titanic = read.csv("C:/Users/student/Downloads/titanic.csv")
+    library(dplyr)
+    ```
+
+-   head
+
+    ```{r}
+    head(titanic)
+
+    ```
+
+-   str
+
+    ```{r}
+    str(titanic)
+    ```
+
+-   names
+
+    ```{r}
+    names(titanic)
+    ```
+
+-   mean, min, max
+
+    ```{r}
+    mean(titanic$Age, na.rm = TRUE)
+    min(titanic$Age, na.rm = TRUE)
+    max(titanic$Age, na.rm = TRUE)
+    ```
+
+-   table
+
+    ```{r}
+    table(titanic$Survived)
+    ```
+
+-   is.na
+
+    ```{r}
+    sum(is.na(titanic))
+    ```
+
+-   colSums
+
+    ```{r}
+    colSums(is.na(titanic))
+    ```
+
+-   class
+
+    ```{r}
+    class(titanic$Age)
+    ```
+
+-   cor
+
+    ```{r}
+    cor(titanic$Age, titanic$Fare, use = "complete.obs")
+
+    ```
+
+-   by
+
+    ```{r}
+    by(titanic$Fare, titanic$Sex, mean, na.rm = TRUE)
+    ```
+
+-   ifelse
+
+    ```{r}
+    titanic$SurvivalStatus = ifelse(titanic$Survived == 1, "Survived", "Did not survive")
+    table(titanic$SurvivalStatus)
+    ```
+
+-   case_when
+
+    ```{r}
+
+    titanic$AgeGroup = case_when(
+      titanic$Age < 18 ~ "Child",
+      titanic$Age < 60 ~ "Adult",
+    TRUE ~ "Senior"
+    )
+    table(titanic$AgeGroup)
+    ```
+
+18. In the dataset in #17, practice the follows. You can reuse the code of 17.
+
+-   Create a categorical variable from a continuous variable
+
+    ```{r}
+    library(dplyr)
+    titanic$AgeGroup = case_when(
+      titanic$Age < 18 ~ "Child",
+      titanic$Age < 60 ~ "Adult",
+      TRUE ~ "Senior"
+    )
+    table(titanic$AgeGroup)
+    ```
+
+-   From one categorical variable, create a new categorical variable with fewer categories
+
+    ```{r}
+    titanic$ClassGroup = ifelse(titanic$Pclass == 1, "Higher Class", "Lower Class"
+    )
+    table(titanic$ClassGroup)
+    ```
+
+If you do not have a data, you can use [the titanic dataset](https://www.kaggle.com/competitions/titanic/overview), which can be downloaded at [this link](https://bryantstats.github.io/math421/data/titanic.csv)
