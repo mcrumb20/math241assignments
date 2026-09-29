@@ -1,0 +1,125 @@
+
+---
+output: # rmarkdown::github_document
+  html_document:
+    theme: cerulean
+    toc: true
+  pdf_document: default
+  word_document: default
+title: "Assignment 5: Part 1"
+---
+
+***How to do it?***: 
+
+- Open the Rmarkdown file of this assignment ([link](assignment5_part1.Rmd)) in Rstudio. 
+
+- Right under each **question**, insert  a code chunk (you can use the hotkey `Ctrl + Alt + I` to add a code chunk) and code the solution for the question. 
+
+- `Knit` the rmarkdown file (hotkey: `Ctrl + Alt + K`) to export an html.  
+
+-  Publish the html file to your Githiub Page. 
+
+***Submission***: Submit the link on Github of the assignment to Canvas. 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE)
+```
+
+-------
+
+**The data:** 
+
+This assignment works with the Adult Census Data that can be downloaded at [this link.](https://bryantstats.github.io/math421/data/adult_census_missing.csv)
+
+-------
+
+**Questions**
+
+1. Use `read_csv` to import the data.  Show the number of NAs for each columns.
+```{r}
+library(readr)
+library(tidyverse)
+df <-read_csv("C:/Users/student/Desktop/421math/math241assignments/adult_census_missing_right.csv")
+colSums(is.na(df))
+
+```
+
+
+2. Using function `aggr` the VIM package to plot the number of NAs for each column.
+```{r, eval=FALSE}
+library(tidyverse)
+library(VIM)
+
+aggr(df)
+```
+
+
+3. Find other forms of missing values. Hint: You can use the `table` function to check if there are suspicious categories (Unknown, for example) in a variable. What all other forms of missing values shown in the data. 
+```{r}
+table(df$education)
+sum(is.na(df$age))
+table(df$workclass)
+table(df$marital.status)
+table(df$occupation)
+table(df$sex)
+table(df$capital.gain, useNA = "always")
+table(df$native.country)
+```
+
+
+4. Replace all the forms of missing values found to NA
+```{r}
+library(tidyverse)
+df <- replace(df, df == 'Unknown' |
+                  df == '?'       |
+                  df == 'Not Known', NA)
+```
+```{r}
+
+
+```
+
+
+5. Replot the number of NAs for each column. 
+
+6. Approach 1 to handle NAs: remove all rows that have any NAs. Save the dataset after removing as a different data. The original data is unchanged (still have NAs).  How many rows left after removing?
+```{r}
+df1 = drop_na(df)
+```
+
+
+7. Approach 2 to handle NAs:  Fill all the NAs with the previous or next value. (Hint: Using `fill` function).  Save the dataset after filling as a different data. The original data is unchanged (still have NAs). 
+```{r}
+df2 <- df %>% 
+  fill(age, workclass, education, marital.status, occupation, sex, capital.gain, native.country, .direction = "updown")
+```
+
+
+
+8. Approach 3 to handle NAs: For numeric variable, replace the NAs by the median.  For categorical variables, replace the NAs to the majority. 
+
+```{r}
+mean_age <- mean(df$age, na.rm = TRUE)
+df$age <- replace_na(df$age, mean_age)
+
+mean_fnlwgt <- mean(df$fnlwgt, na.rm = TRUE)
+df$fnlwgt <- replace_na(df$fnlwgt, mean_fnlwgt)
+
+mean_education_num <- mean(df$education.num, na.rm = TRUE)
+df$education.num <- replace_na(df$education.num, mean_education_num)
+
+mean_capital_gain <- mean(df$capital.gain, na.rm = TRUE)
+df$capital.gain <- replace_na(df$capital.gain, mean_capital_gain)
+
+mean_capital_loss <- mean(df$capital.loss, na.rm = TRUE)
+df$capital.loss <- replace_na(df$capital.loss, mean_capital_loss)
+
+mean_hours <- mean(df$hours.per.week, na.rm = TRUE)
+df$hours.per.week <- replace_na(df$hours.per.week, mean_hours)
+```
+
+
+
+
+
+

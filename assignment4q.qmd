@@ -203,6 +203,21 @@ df %>%
       filter(month %in% c(9, 10, 11)) %>%
       group_by(month2) %>%
       summarize(avg_deaths = mean(deathIncrease, na.rm = TRUE))
+
+      
+    ```
+
+-   
+
+    ```{r}
+    df$year = df(df$date)
+
+    df %>%
+      
+      filter(month %in% c(6, 7, 8), year == 2020)
+      group_by(month) %>% 
+      summarize(avg_death2020 = mean(deathIncrease, na.rm = TRUE))
+
     ```
 
 -   Compare the average number of hospitalizations between weekdays and weekends in Summer 2020
