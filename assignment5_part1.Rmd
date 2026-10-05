@@ -76,10 +76,7 @@ df <- replace(df,
               df == '?' |
               df == 'Not Known', NA)
 ```
-```{r}
 
-
-```
 
 
 5. Replot the number of NAs for each column. 
@@ -118,7 +115,7 @@ majority_workclass <- names(which.max(table(df3$workclass)))
 df3$workclass <- replace_na(df3$workclass, majority_workclass)
 
 majority_education <- names(which.max(table(df3$education)))
-df3$educatin <- replace_na(df3$education, majority_education)
+df3$education <- replace_na(df3$education, majority_education)
 
 majority_marital_status <-  names(which.max(table(df3$marital.status)))
 df3$marital.status <- replace_na(df3$marital.status, majority_marital_status)

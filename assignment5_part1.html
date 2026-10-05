@@ -573,7 +573,7 @@ majority_workclass &lt;- names(which.max(table(df3$workclass)))
 df3$workclass &lt;- replace_na(df3$workclass, majority_workclass)
 
 majority_education &lt;- names(which.max(table(df3$education)))
-df3$educatin &lt;- replace_na(df3$education, majority_education)
+df3$education &lt;- replace_na(df3$education, majority_education)
 
 majority_marital_status &lt;-  names(which.max(table(df3$marital.status)))
 df3$marital.status &lt;- replace_na(df3$marital.status, majority_marital_status)
