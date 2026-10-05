@@ -56,14 +56,15 @@ aggr(df)
 
 3. Find other forms of missing values. Hint: You can use the `table` function to check if there are suspicious categories (Unknown, for example) in a variable. What all other forms of missing values shown in the data. 
 ```{r}
-table(df$education, useNA = "always")
-sum(is.na(df$age))
-table(df$workclass, useNA = "always")
-table(df$marital.status, useNA = "always")
-table(df$occupation,  useNA = "always")
-table(df$sex, useNA = "always")
-table(df$capital.gain, useNA = "always")
-table(df$native.country, useNA = "always")
+colSums(df=='Unknown', na.rm = TRUE)
+table(df$education)
+table(df$age)
+table(df$workclass)
+table(df$marital.status)
+table(df$occupation)
+table(df$sex)
+table(df$capital.gain)
+table(df$native.country)
 ```
 
 
