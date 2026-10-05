@@ -403,33 +403,35 @@ aggr(df)</code></pre>
 (Unknown, for example) in a variable. What all other forms of missing
 values shown in the data.</li>
 </ol>
-<pre class="r"><code>table(df$education)</code></pre>
+<pre class="r"><code>table(df$education, useNA = &quot;always&quot;)</code></pre>
 <pre><code>## 
 ##         10th         11th         12th      1st-4th      5th-6th      7th-8th 
 ##          931         1174          431          168          333          645 
 ##          9th   Assoc-acdm    Assoc-voc    Bachelors    Doctorate      HS-grad 
 ##          514         1064         1376         5342          413        10475 
 ##      Masters    Not Known    Preschool  Prof-school Some-college      Unknown 
-##         1719           36           51          575         7273           26</code></pre>
+##         1719           36           51          575         7273           26 
+##         &lt;NA&gt; 
+##           15</code></pre>
 <pre class="r"><code>sum(is.na(df$age))</code></pre>
 <pre><code>## [1] 30</code></pre>
-<pre class="r"><code>table(df$workclass)</code></pre>
+<pre class="r"><code>table(df$workclass, useNA = &quot;always&quot;)</code></pre>
 <pre><code>## 
 ##                ?      Federal-gov        Local-gov     Never-worked 
 ##             1835              957             2086                7 
 ##        Not Known          Private     Self-emp-inc Self-emp-not-inc 
 ##               12            22664             1110             2537 
-##        State-gov          Unknown      Without-pay 
-##             1293               12               14</code></pre>
-<pre class="r"><code>table(df$marital.status)</code></pre>
+##        State-gov          Unknown      Without-pay             &lt;NA&gt; 
+##             1293               12               14               34</code></pre>
+<pre class="r"><code>table(df$marital.status, useNA = &quot;always&quot;)</code></pre>
 <pre><code>## 
 ##              Divorced     Married-AF-spouse    Married-civ-spouse 
 ##                  4435                    23                 14963 
 ## Married-spouse-absent         Never-married             Not Known 
 ##                   418                 10666                    12 
-##             Separated               Widowed 
-##                  1025                   993</code></pre>
-<pre class="r"><code>table(df$occupation)</code></pre>
+##             Separated               Widowed                  &lt;NA&gt; 
+##                  1025                   993                    26</code></pre>
+<pre class="r"><code>table(df$occupation,  useNA = &quot;always&quot;)</code></pre>
 <pre><code>## 
 ##                 ?      Adm-clerical      Armed-Forces      Craft-repair 
 ##              1840              3761                 9              4090 
@@ -439,12 +441,12 @@ values shown in the data.</li>
 ##                12              3287               149              4132 
 ##   Protective-serv             Sales      Tech-support  Transport-moving 
 ##               647              3647               924              1594 
-##           Unknown 
-##                13</code></pre>
-<pre class="r"><code>table(df$sex)</code></pre>
+##           Unknown              &lt;NA&gt; 
+##                13                35</code></pre>
+<pre class="r"><code>table(df$sex, useNA = &quot;always&quot;)</code></pre>
 <pre><code>## 
-##  Female    Male Unknown 
-##   10752   21759      26</code></pre>
+##  Female    Male Unknown    &lt;NA&gt; 
+##   10752   21759      26      24</code></pre>
 <pre class="r"><code>table(df$capital.gain, useNA = &quot;always&quot;)</code></pre>
 <pre><code>## 
 ##     0   114   401   594   914   991  1055  1086  1111  1151  1173  1409  1424 
@@ -467,7 +469,7 @@ values shown in the data.</li>
 ##    27    41    26     5   347     6     2    37     1     4    11    34     5 
 ## 41310 99999  &lt;NA&gt; 
 ##     2   159     8</code></pre>
-<pre class="r"><code>table(df$native.country)</code></pre>
+<pre class="r"><code>table(df$native.country, useNA = &quot;always&quot;)</code></pre>
 <pre><code>## 
 ##                          ?                   Cambodia 
 ##                        582                         19 
@@ -512,19 +514,26 @@ values shown in the data.</li>
 ##              United-States                    Unknown 
 ##                      29110                         26 
 ##                    Vietnam                 Yugoslavia 
-##                         67                         16</code></pre>
+##                         67                         16 
+##                       &lt;NA&gt; 
+##                         15</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Replace all the forms of missing values found to NA</li>
 </ol>
 <pre class="r"><code>library(tidyverse)
-df &lt;- replace(df, df == &#39;Unknown&#39; |
-                  df == &#39;?&#39;       |
-                  df == &#39;Not Known&#39;, NA)</code></pre>
+df &lt;- replace(df, 
+              df == &#39;Unknown&#39; |
+              df == &#39;?&#39; |
+              df == &#39;Not Known&#39;, NA)</code></pre>
 <ol start="5" style="list-style-type: decimal">
-<li><p>Replot the number of NAs for each column.</p></li>
-<li><p>Approach 1 to handle NAs: remove all rows that have any NAs. Save
+<li>Replot the number of NAs for each column.</li>
+</ol>
+<pre class="r"><code>barplot(colSums(is.na(df)))</code></pre>
+<p><img role="img" src="data:image/png;base64,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" width="672" /></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Approach 1 to handle NAs: remove all rows that have any NAs. Save
 the dataset after removing as a different data. The original data is
-unchanged (still have NAs). How many rows left after removing?</p></li>
+unchanged (still have NAs). How many rows left after removing?</li>
 </ol>
 <pre class="r"><code>df1 = drop_na(df)</code></pre>
 <ol start="7" style="list-style-type: decimal">
@@ -540,23 +549,32 @@ NAs).</li>
 the median. For categorical variables, replace the NAs to the
 majority.</li>
 </ol>
-<pre class="r"><code>mean_age &lt;- mean(df$age, na.rm = TRUE)
-df$age &lt;- replace_na(df$age, mean_age)
+<pre class="r"><code>df3 &lt;- df
+#Numeric Variables
+df3$age &lt;- replace_na(df$age, median(df3$age, na.rm = TRUE))
 
-mean_fnlwgt &lt;- mean(df$fnlwgt, na.rm = TRUE)
-df$fnlwgt &lt;- replace_na(df$fnlwgt, mean_fnlwgt)
+df3$capital.gain &lt;- replace_na(df3$capital.gain, median(df3$capital.gain, na.rm=TRUE))
 
-mean_education_num &lt;- mean(df$education.num, na.rm = TRUE)
-df$education.num &lt;- replace_na(df$education.num, mean_education_num)
 
-mean_capital_gain &lt;- mean(df$capital.gain, na.rm = TRUE)
-df$capital.gain &lt;- replace_na(df$capital.gain, mean_capital_gain)
+#Categorical Variables with majority values 
 
-mean_capital_loss &lt;- mean(df$capital.loss, na.rm = TRUE)
-df$capital.loss &lt;- replace_na(df$capital.loss, mean_capital_loss)
+majority_workclass &lt;- names(which.max(table(df3$workclass)))
+df3$workclass &lt;- replace_na(df3$workclass, majority_workclass)
 
-mean_hours &lt;- mean(df$hours.per.week, na.rm = TRUE)
-df$hours.per.week &lt;- replace_na(df$hours.per.week, mean_hours)</code></pre>
+majority_education &lt;- names(which.max(table(df3$education)))
+df3$educatin &lt;- replace_na(df3$education, majority_education)
+
+majority_marital_status &lt;-  names(which.max(table(df3$marital.status)))
+df3$marital.status &lt;- replace_na(df3$marital.status, majority_marital_status)
+
+majority_occupation &lt;- names(which.max(table(df3$occupation)))
+df3$occupation &lt;- replace_na(df3$occupation, majority_occupation)
+
+majority_sex &lt;- names(which.max(table(df3$sex)))
+df3$sex &lt;- replace_na(df3$sex, majority_sex)
+
+majority_native_country &lt;- names(which.max(table(df3$native.country)))
+df3$native.country &lt;- replace_na(df3$native.country, majority_native_country)</code></pre>
 
 
 

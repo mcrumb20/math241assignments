@@ -56,23 +56,24 @@ aggr(df)
 
 3. Find other forms of missing values. Hint: You can use the `table` function to check if there are suspicious categories (Unknown, for example) in a variable. What all other forms of missing values shown in the data. 
 ```{r}
-table(df$education)
+table(df$education, useNA = "always")
 sum(is.na(df$age))
-table(df$workclass)
-table(df$marital.status)
-table(df$occupation)
-table(df$sex)
+table(df$workclass, useNA = "always")
+table(df$marital.status, useNA = "always")
+table(df$occupation,  useNA = "always")
+table(df$sex, useNA = "always")
 table(df$capital.gain, useNA = "always")
-table(df$native.country)
+table(df$native.country, useNA = "always")
 ```
 
 
 4. Replace all the forms of missing values found to NA
 ```{r}
 library(tidyverse)
-df <- replace(df, df == 'Unknown' |
-                  df == '?'       |
-                  df == 'Not Known', NA)
+df <- replace(df, 
+              df == 'Unknown' |
+              df == '?' |
+              df == 'Not Known', NA)
 ```
 ```{r}
 
@@ -81,6 +82,10 @@ df <- replace(df, df == 'Unknown' |
 
 
 5. Replot the number of NAs for each column. 
+```{r}
+barplot(colSums(is.na(df)))
+```
+
 
 6. Approach 1 to handle NAs: remove all rows that have any NAs. Save the dataset after removing as a different data. The original data is unchanged (still have NAs).  How many rows left after removing?
 ```{r}
@@ -99,23 +104,33 @@ df2 <- df %>%
 8. Approach 3 to handle NAs: For numeric variable, replace the NAs by the median.  For categorical variables, replace the NAs to the majority. 
 
 ```{r}
-mean_age <- mean(df$age, na.rm = TRUE)
-df$age <- replace_na(df$age, mean_age)
+df3 <- df
+#Numeric Variables
+df3$age <- replace_na(df$age, median(df3$age, na.rm = TRUE))
 
-mean_fnlwgt <- mean(df$fnlwgt, na.rm = TRUE)
-df$fnlwgt <- replace_na(df$fnlwgt, mean_fnlwgt)
+df3$capital.gain <- replace_na(df3$capital.gain, median(df3$capital.gain, na.rm=TRUE))
 
-mean_education_num <- mean(df$education.num, na.rm = TRUE)
-df$education.num <- replace_na(df$education.num, mean_education_num)
 
-mean_capital_gain <- mean(df$capital.gain, na.rm = TRUE)
-df$capital.gain <- replace_na(df$capital.gain, mean_capital_gain)
+#Categorical Variables with majority values 
 
-mean_capital_loss <- mean(df$capital.loss, na.rm = TRUE)
-df$capital.loss <- replace_na(df$capital.loss, mean_capital_loss)
+majority_workclass <- names(which.max(table(df3$workclass)))
+df3$workclass <- replace_na(df3$workclass, majority_workclass)
 
-mean_hours <- mean(df$hours.per.week, na.rm = TRUE)
-df$hours.per.week <- replace_na(df$hours.per.week, mean_hours)
+majority_education <- names(which.max(table(df3$education)))
+df3$educatin <- replace_na(df3$education, majority_education)
+
+majority_marital_status <-  names(which.max(table(df3$marital.status)))
+df3$marital.status <- replace_na(df3$marital.status, majority_marital_status)
+
+majority_occupation <- names(which.max(table(df3$occupation)))
+df3$occupation <- replace_na(df3$occupation, majority_occupation)
+
+majority_sex <- names(which.max(table(df3$sex)))
+df3$sex <- replace_na(df3$sex, majority_sex)
+
+majority_native_country <- names(which.max(table(df3$native.country)))
+df3$native.country <- replace_na(df3$native.country, majority_native_country)
+
 ```
 
 
