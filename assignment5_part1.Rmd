@@ -104,7 +104,7 @@ df2 <- df %>%
 ```{r}
 df3 <- df
 #Numeric Variables
-df3$age <- replace_na(df$age, median(df3$age, na.rm = TRUE))
+df3$age <- replace_na(df$age,29)
 
 df3$capital.gain <- replace_na(df3$capital.gain, median(df3$capital.gain, na.rm=TRUE))
 
