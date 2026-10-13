@@ -29,47 +29,109 @@ knitr::opts_chunk$set(message = FALSE)
 
 Choose a dataset and produce the following types of plots and comment on each plot. Plots should be meaningful. If you use the data we used in class, make sure the plots are not the same as the ones in the slides. 
 
+```{r}
+library(tidyverse)
+library(ggplot2)
+df <- read.csv("C:/Users/student/Desktop/421math/math241assignments/titanic (1).csv")
+names(df)
+```
+
+
 -------
 
 1. For one continuous variable:
 
 - Density
+```{r}
+df %>% ggplot()+
+  geom_density(mapping = aes(x = Fare))
+```
+
 
 - Histogram 
+```{r}
+df %>% ggplot()+
+  geom_histogram(mapping = aes(x = Fare))
+```
 
 - Boxplot
+```{r}
+ggplot(df, aes(y =Fare)) +
+  geom_boxplot()
+```
 
 -------
 
 2. For one categorical variable
 
 - Barplot
+```{r}
+df %>% ggplot()+
+  geom_bar(mapping = aes(x = Sex))
+```
+
 
 -------
 
 3. For two continuous variables
 
 - Scatter Plot
+```{r}
+df %>% ggplot()+geom_point(aes(x=Age, y=Fare))
+
+```
+
 
 - Line Plot
+```{r}
+df %>% 
+  ggplot()+geom_line(aes(x=Age, y=Fare))
+```
+
 
 - Smooth Plot
+```{r}
+df %>% 
+  ggplot()+geom_smooth(aes(x=Age, y=Fare))
+```
+
 
 -------
 
 4. For one continuous + one categorical variables
 
 - Density
+```{r}
+df %>% ggplot()+
+  geom_density(mapping = aes(x = Age, color = Sex))
+```
+
 
 - BoxPlot
+```{r}
+df %>% ggplot()+ 
+  geom_boxplot(mapping = aes(x= Age, y = Sex))
+```
+
 
 -------
 
 5. For two categorical variables: barplot
 
+```{r}
+df %>% ggplot()+
+  geom_bar(mapping=aes(x = Sex, fill = Embarked), position = 'fill')
+```
+  
 
 -------
 
 6. A plot that contains three variables
+```{r}
+df %>% 
+  ggplot() + geom_point(aes(x = Fare, y = Age, color = Sex))
+
+```
+
 
 
