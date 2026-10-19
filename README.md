@@ -8,4 +8,4 @@
 [Assignment 6](assignment6.html)
 [abc.png](abc.png)
 [Assignment 7](assignment7.html)
-[Assignment 8](assingment8--1.html)
+[Assignment 8](assignment8--1.html)
