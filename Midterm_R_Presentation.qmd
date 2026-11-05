@@ -1,0 +1,288 @@
+---
+title: "Hospital Data Analysis"
+format: revealjs
+editor: visual
+---
+
+## Project Overview
+
+- Analyzed hospital patient data
+
+- Created visualizations
+
+- Built Decision Tree & KNN Models
+
+## Dataset Description
+
+Variables Used:
+
+- Age
+
+- Sex
+
+- Race/Ethnicity
+
+- Provider
+
+- Admission Type
+
+- Campus
+
+- Length of Stay (LOS)
+
+- Total Charges (TOT)
+
+
+## Admissions by Sex 
+::::: columns
+::: {.column width="40%"}
+- Most patients were young children
+
+- Large concentration of ages of 0-5
+
+- Age distribution is not uniform across patients
+:::
+
+::: {.column width="60%"}
+```{r}
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4.5
+knitr::include_graphics("AdmissionsBySex.png")
+```
+:::
+:::::
+
+
+
+## Patient Age Distribution
+
+::::: columns
+::: {.column width="40%"}
+- Most patients were young children
+
+- Large concentration of ages of 0-5
+
+- Age distribution is not uniform across patients
+:::
+
+::: {.column width="60%"}
+```{r}
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4.5
+knitr::include_graphics("PatientAgeDistr.png")
+```
+:::
+:::::
+
+
+## Admissions by Month 
+
+::: columns
+- Patient age distribution remained consistent throughout the year
+
+- May and October had the highest admissions
+
+- February showed the lowest number of admissions (shortest month)
+:::
+
+:::: columns
+::: {.column width="70%"}
+```{r}
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4.5
+knitr::include_graphics("AdmissionsbyMonth.png")
+```
+:::
+::::
+
+## Patient Age Distribution by Month
+
+
+::: columns
+- These patterns remain pretty consistent throughout the year
+
+- Actually interesting considering the winter months
+:::
+
+:::: columns
+::: {.column width="70%"}
+```{r}
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4.5
+knitr::include_graphics("age_distribution_by_month.gif")
+```
+:::
+::::
+
+## Age Distribution by Sex
+
+
+::: {.columns width="40%"}
+- Most patients were age 0 or between 55-85
+
+- Females were more represented at ages 20-35
+:::
+
+:::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4.5
+knitr::include_graphics("AgeDistrBySex.png")
+```
+:::
+::::
+
+## Top 10 Providers by Number of Patients
+
+::: {.columns width="40%"}
+- Provider 7205 (Bradley) had the most patients by a substantial margin
+:::
+
+:::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4.5
+knitr::include_graphics("Top10Providers.png")
+```
+:::
+::::
+
+## Average Total Charges by Month
+
+::: {.columns width="40%"}
+- Average hospital charges were relatively the same throughout the year
+- July had the smallest total charge, interesting because of 4th of July
+:::
+
+:::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4.5
+knitr::include_graphics("Avg_charges_month.png")
+```
+:::
+::::
+
+## Total Charges by Sex
+
+::: {.columns width="40%"}
+- Both groups contain a large number of high-cost outliers
+- Most patients had relatively low charges, there were some extremes
+:::
+
+:::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4.5
+knitr::include_graphics("TotalChargesBySex.png")
+```
+:::
+::::
+
+## Total Charges by Length of Stay
+
+::: {.columns width="40%"}
+- Positive relationship between LOS and total charges 
+:::
+
+:::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4.5
+knitr::include_graphics("TotalCharges_LOS.png")
+```
+:::
+::::
+
+
+## Charges by Season
+
+::: {.columns width="40%"}
+- Median total charges were similar meaning healthcare costs remained pretty consistent
+:::
+
+:::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4.5
+knitr::include_graphics("ChargesBySeason.png")
+```
+:::
+::::
+
+## Length of Stay by Season
+
+::: {.columns width="40%"}
+- Typical length of stay was similar across all season 
+- The most extreme outliers were in the Fall, and least in the Spring
+:::
+
+:::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4.5
+knitr::include_graphics("LOSSeason.png")
+```
+:::
+::::
+
+## Comparison Model
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("part3q4.png")
+
+```
+
+This is the Comparison model for question 4
+
+## Model Training & Comparison
+
+Models Evaluated:
+
+- Decision Tree & K-Nearest Neighbors (KNN)
+
+Results:
+
+- Decision Tree Accuracy: 81%
+
+- KNN Accuracy: 77%
+
+The Decision Tree achieved the highest accuracy and was selected as the best model.
+
+## Question 6
+
+::: {.columns width="40%"}
+- Decision Tree Accuracy: 78.96%
+- KNN Accuracy: 72.64% 
+- The Decision Tree was selected as the final model 
+- Compared the patient's length of stay was above or below the median
+:::
+
+:::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4.5
+knitr::include_graphics("q6_model_comparison.png")
+```
+:::
+::::
