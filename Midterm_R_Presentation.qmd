@@ -36,11 +36,9 @@ Variables Used:
 
 ::::: columns
 ::: {.column width="40%"}
-- Most patients were young children
+- Females represented a larger population
 
-- Large concentration of ages of 0-5
-
-- Age distribution is not uniform across patients
+- This could be helpful to know for resources needed
 :::
 
 ::: {.column width="60%"}
@@ -77,8 +75,6 @@ knitr::include_graphics("PatientAgeDistr.png")
 ## Admissions by Month
 
 ::: columns
-- Patient age distribution remained consistent throughout the year
-
 - May and October had the highest admissions
 
 - February showed the lowest number of admissions (shortest month)
