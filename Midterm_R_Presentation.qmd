@@ -32,8 +32,8 @@ Variables Used:
 
 - Total Charges (TOT)
 
+## Admissions by Sex
 
-## Admissions by Sex 
 ::::: columns
 ::: {.column width="40%"}
 - Most patients were young children
@@ -52,8 +52,6 @@ knitr::include_graphics("AdmissionsBySex.png")
 ```
 :::
 :::::
-
-
 
 ## Patient Age Distribution
 
@@ -76,8 +74,7 @@ knitr::include_graphics("PatientAgeDistr.png")
 :::
 :::::
 
-
-## Admissions by Month 
+## Admissions by Month
 
 ::: columns
 - Patient age distribution remained consistent throughout the year
@@ -100,7 +97,6 @@ knitr::include_graphics("AdmissionsbyMonth.png")
 
 ## Patient Age Distribution by Month
 
-
 ::: columns
 - These patterns remain pretty consistent throughout the year
 
@@ -119,7 +115,6 @@ knitr::include_graphics("age_distribution_by_month.gif")
 ::::
 
 ## Age Distribution by Sex
-
 
 ::: {.columns width="40%"}
 - Most patients were age 0 or between 55-85
@@ -194,7 +189,7 @@ knitr::include_graphics("TotalChargesBySex.png")
 ## Total Charges by Length of Stay
 
 ::: {.columns width="40%"}
-- Positive relationship between LOS and total charges 
+- Positive relationship between LOS and total charges
 :::
 
 :::: columns
@@ -207,7 +202,6 @@ knitr::include_graphics("TotalCharges_LOS.png")
 ```
 :::
 ::::
-
 
 ## Charges by Season
 
@@ -229,7 +223,7 @@ knitr::include_graphics("ChargesBySeason.png")
 ## Length of Stay by Season
 
 ::: {.columns width="40%"}
-- Typical length of stay was similar across all season 
+- Typical length of stay was similar across all season
 - The most extreme outliers were in the Fall, and least in the Spring
 :::
 
@@ -271,8 +265,8 @@ The Decision Tree achieved the highest accuracy and was selected as the best mod
 
 ::: {.columns width="40%"}
 - Decision Tree Accuracy: 78.96%
-- KNN Accuracy: 72.64% 
-- The Decision Tree was selected as the final model 
+- KNN Accuracy: 72.64%
+- The Decision Tree was selected as the final model
 - Compared the patient's length of stay was above or below the median
 :::
 
@@ -286,3 +280,9 @@ knitr::include_graphics("q6_model_comparison.png")
 ```
 :::
 ::::
+
+## Challenges
+
+- Data took a long time to load
+
+- Trying to fit the graphs onto the slides with the wording
