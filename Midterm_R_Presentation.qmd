@@ -150,7 +150,7 @@ knitr::include_graphics("Top10Providers.png")
 
 ::: {.columns width="40%"}
 - Average hospital charges were relatively the same throughout the year
-- July had the smallest total charge, interesting because of 4th of July
+- July had the smallest total charge
 :::
 
 :::: columns
